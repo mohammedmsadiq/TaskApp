@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:i18n="clr-namespace:TaskApp.i18n;assembly=TaskApp"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:controls="clr-namespace:TaskApp.Controls"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    Title="{Binding Title}"
+    xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    x:Class="TaskApp.Views.MainPage">
+    <ContentPage.Content>
+        <ListView
+            ItemsSource="{Binding Items}"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="StartAndExpand"
+            BackgroundColor="Transparent"
+            SelectedItem="{Binding SelectedItem}"
+            SeparatorColor="Transparent"
+            HasUnevenRows="true">
+            <ListView.Behaviors>
+                <b:EventToCommandBehavior
+                    EventName="ItemTapped"
+                    Command="{Binding QuestionSelectedCommand}"
+                    EventArgsParameterPath="Item" />
+            </ListView.Behaviors>
+            <ListView.Header>
+                <StackLayout
+                    Padding="10">
+                    <StackLayout
+                        Orientation="Horizontal"
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand">
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            VerticalOptions="Center"
+                            Text="Tasks" />
+                        <ImageButton
+                            BackgroundColor="Transparent"
+                            BorderColor="Transparent"
+                            Margin="10,0,15,0"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="EndAndExpand"
+                            Command="{Binding AddTaskCommand}"
+                            Source="ic_action_add"
+                            HeightRequest="30"
+                            WidthRequest="30" />
+                    </StackLayout>
+                    <BoxView
+                        BackgroundColor="Gray"
+                        VerticalOptions="FillAndExpand"
+                        HeightRequest="0.5" />
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <controls:ListViewItemControl />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>
